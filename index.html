@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>2월 15일까지 남은 시간</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0f0f0f;
+      color: #00ffcc;
+      font-family: Consolas, monospace;
+      text-align: center;
+    }
+    .box {
+      font-size: 32px;
+      line-height: 1.6;
+    }
+    .seconds {
+      font-size: 48px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div>2월 15일까지 남은 시간</div>
+    <div class="seconds" id="seconds">계산 중...</div>
+    <div>초</div>
+  </div>
+
+  <script>
+    function getTargetDate() {
+      const now = new Date();
+      let year = now.getFullYear();
+
+      // 올해 2월 15일
+      let target = new Date(year, 1, 15, 0, 0, 0);
+
+      // 이미 지났으면 내년 2월 15일
+      if (now >= target) {
+        target = new Date(year + 1, 1, 15, 0, 0, 0);
+      }
+      return target;
+    }
+
+    const targetDate = getTargetDate();
+
+    function updateCountdown() {
+      const now = new Date();
+      const diffMs = targetDate - now;
+      const diffSeconds = Math.floor(diffMs / 1000);
+
+      document.getElementById("seconds").textContent =
+        diffSeconds > 0 ? diffSeconds.toLocaleString() : "0";
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
